@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Grok's Matrix Twist - Encrypt/Decrypt</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #42a5f5;
+        }
+        /* Màu xanh xAI */
+        #inputText {
+            width: 300px;
+            padding: 5px;
+        }
+
+        #mode {
+            padding: 5px;
+        }
+
+        #sendBtn {
+            background: #42a5f5;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            background: #333;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+    <script src="/Scripts/jquery-3.6.0.min.js"></script> <!-- Đảm bảo tải cục bộ -->
+</head>
+<body>
+    <h2>Grok's Matrix Twist - Built by xAI</h2>
+    <input type="text" id="inputText" placeholder="Nhập chuỗi..." />
+    <select id="mode">
+        <option value="encrypt">Encrypt</option>
+        <option value="decrypt">Decrypt</option>
+    </select>
+    <button id="sendBtn">Send</button>
+
+    <h3>Kết quả:</h3>
+    <pre id="result"></pre>
+
+    <script>
+        $("#sendBtn").click(function () {
+            var input = $("#inputText").val().trim();
+            var mode = $("#mode").val();
+
+            // Validate trước khi gửi
+            if (!input) {
+                $("#result").text("Error: Vui lòng nhập chuỗi!");
+                return;
+            }
+            if (!mode || (mode !== "encrypt" && mode !== "decrypt")) {
+                $("#result").text("Error: Vui lòng chọn mode hợp lệ!");
+                return;
+            }
+
+            $.ajax({
+                url: "API.aspx",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                data: {
+                    mode: mode,
+                    input: input
+                },
+                success: function (res) {
+                    if (res.error) {
+                        $("#result").text("Error: " + res.error);
+                    } else {
+                        $("#result").text("Kết quả: " + res.report + " (Grok's Matrix Twist - Built by xAI)");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    $("#result").text("Lỗi kết nối: " + xhr.responseText || error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

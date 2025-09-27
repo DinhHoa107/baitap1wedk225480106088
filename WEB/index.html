@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Matrix Twist - Demo</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        .box {
+            margin-bottom: 10px;
+        }
+
+        input, select, button {
+            padding: 5px;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h2>Matrix Twist - Encrypt / Decrypt</h2>
+    <div class="box">
+        <label>Mode: </label>
+        <select id="mode">
+            <option value="encrypt">Encrypt</option>
+            <option value="decrypt">Decrypt</option>
+        </select>
+    </div>
+    <div class="box">
+        <label>Input: </label>
+        <input type="text" id="inputText" style="width:300px;">
+    </div>
+    <div class="box">
+        <button onclick="sendRequest()">Submit</button>
+    </div>
+    <div id="result">Result will appear here...</div>
+
+    <script>
+        function sendRequest() {
+            var mode = document.getElementById("mode").value;
+            var input = document.getElementById("inputText").value;
+
+            fetch("api.aspx", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: "mode=" + encodeURIComponent(mode) + "&input=" + encodeURIComponent(input)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById("result").innerHTML =
+                        "<b>JSON Response:</b><br><pre>" + JSON.stringify(data, null, 2) + "</pre>";
+                })
+                .catch(err => {
+                    document.getElementById("result").innerHTML =
+                        "<span style='color:red'>Error: " + err + "</span>";
+                });
+        }
+    </script>
+</body>
+</html>
