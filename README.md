@@ -1,6 +1,6 @@
 # BÀI TẬP 1
 # Họ tên: Tạ Phạm Đình Hoà
-## Đề tài: Xây dựng ứng dụng WebForm sử dụng DLL (ASP.NET WebForm + Class Library)
+## Đề tài: Chuỗi Mã Hóa
 TẠO SOLUTION GỒM CÁC PROJECT SAU: ###
 1. DLL đa năng, keyword: c# window library -› **Class Library (-NET Framework)**: giải bài toán bất kỳ, độc lạ càng tốt, có dấu ấn cá nhân trong kết quả, biên dịch ra
 2. Console sử dụng được DLL trên: nhập được input, gọi DLL, hiển thị kết quả. keyword: c# window Console => **Console App (-NET Framework)**, biên dịch ra EXE
